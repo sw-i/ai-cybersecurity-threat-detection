@@ -166,9 +166,6 @@ sudo tshark -D
 4. Push to the branch (`git push origin feature/AmazingFeature`)
 5. Open a Pull Request
 
-## 📜 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ## 🙏 Acknowledgments
 
@@ -178,9 +175,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - Socket.IO
 
 ## 📧 Contact
-
-Your Name - your.email@example.com
-Project Link: [https://github.com/yourusername/ai-cybersecurity-threat-detection](https://github.com/yourusername/ai-cybersecurity-threat-detection)
+Project Link: [https://github.com/sw-i/ai-cybersecurity-threat-detection](https://github.com/sw-i/ai-cybersecurity-threat-detection)
 
 ## ⚠️ Disclaimer
 
