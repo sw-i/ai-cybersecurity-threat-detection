@@ -1,125 +1,190 @@
-AI-Powered Cybersecurity Threat Detection System
+# AI-Powered Cybersecurity Threat Detection Dashboard 🛡️
 
-🚀 Project Overview
+A real-time network security monitoring dashboard that uses machine learning to detect potential threats in network traffic. The system captures network packets, analyzes them using a trained ML model, and displays results in a modern, interactive web interface.
 
-This project is an AI-powered real-time cybersecurity threat detection system that:
+## 🌟 Features
 
-Captures network traffic using Wireshark's TShark API.
+- **Real-time Network Monitoring**: Live packet capture and analysis
+- **ML-based Threat Detection**: Uses Random Forest classifier to identify potential threats
+- **Interactive Dashboard**: Modern UI with real-time updates
+- **Visual Analytics**: 
+  - Live traffic visualization
+  - Threat vs. Safe packet statistics
+  - Packet details table
+  - Real-time graph updates
+- **Packet Analysis**:
+  - Source/Destination IP tracking
+  - Protocol analysis
+  - Packet size monitoring
+  - Threat classification
 
-Analyzes packets with machine learning (Random Forest model).
+## 🔧 Prerequisites
 
-Detects and classifies packets as SAFE or THREAT.
+- Python 3.8+
+- TShark (Wireshark CLI)
+- sudo/root privileges (for packet capture)
 
-Visualizes real-time network activity using OpenCV.
+## 📦 Installation
 
-📂 Project Structure
-
-📂 ai-cybersecurity-threat-detection
-│── 📂 src                  # Source code
-│   │── packet_sniffer.cpp   # C++ packet capture program
-│   │── train_model.py       # Machine Learning model training
-│   │── detect_threat.py     # Python function for real-time threat detection
-│   │── visualize_threats.py # OpenCV real-time visualization
-│── 📂 data
-│   │── network_data.csv     # Stored packet data (live or real dataset)
-│── 📂 models
-│   │── anomaly_detection_model.pkl  # Trained ML model
-│── 📂 docs
-│   │── README.md            # GitHub documentation
-│   │── tutorial_script.md   # YouTube tutorial script
-│── .gitignore               # Ignore unnecessary files
-│── requirements.txt         # Python dependencies
-│── LICENSE                  # Open-source license
-│── setup.sh                 # (Optional) Script to install dependencies
-
-🛠️ Installation Guide
-
-Step 1: Clone the Repository
-
-git clone https://github.com/your-username/ai-cybersecurity-threat-detection.git
+1. **Clone the Repository**:
+```bash
+git clone https://github.com/yourusername/ai-cybersecurity-threat-detection.git
 cd ai-cybersecurity-threat-detection
+```
 
-Step 2: Install Dependencies
+2. **Install System Dependencies**:
+```bash
+# Ubuntu/Debian
+sudo apt-get update
+sudo apt-get install -y tshark python3-pip python3-dev
 
-Install the required Python packages:
+# Fedora
+sudo dnf install wireshark python3-pip python3-devel
 
-pip3 install -r requirements.txt
-
-Step 3: Install TShark (Wireshark CLI)
-
-You need Wireshark’s TShark installed to capture network packets.
-
+# macOS
 brew install wireshark
+```
 
-(For Linux users: sudo apt install tshark)
+3. **Install Python Dependencies**:
+```bash
+sudo pip3 install -r requirements.txt
+```
 
-Step 4: Compile the C++ Packet Sniffer
+## 🚀 Usage
 
-g++ src/packet_sniffer.cpp -o packet_sniffer -I/usr/include/python3.9 -lpython3.9
+1. **Train the ML Model**:
+```bash
+python3 train_model.py
+```
 
-Step 5: Capture Network Traffic
+2. **Start the Dashboard**:
+```bash
+sudo python3 app.py
+```
 
-Run the following command to capture live network packets:
+3. **Access the Dashboard**:
+- Open your web browser
+- Navigate to: `http://localhost:5000`
+- Click "Start Capture" to begin monitoring
 
-sudo ./packet_sniffer
+## 📊 Dashboard Features
 
-This will save packet data into network_data.csv.
+### 1. Main Statistics
+- Total Packets Analyzed
+- Threats Detected
+- Safe Packets Count
 
-Step 6: Train the Machine Learning Model
+### 2. Real-time Visualizations
+- Live Traffic Graph
+- Threat vs Safe Packet Ratio
+- Protocol Distribution
 
-Train the ML model on captured network data:
+### 3. Packet Details Table
+- Timestamp
+- Source IP
+- Destination IP
+- Protocol
+- Packet Size
+- Threat Status
 
-python3 src/train_model.py
+## 🔍 How It Works
 
-This will generate a trained model saved as models/anomaly_detection_model.pkl.
+1. **Packet Capture**:
+   - Uses TShark to capture network packets
+   - Monitors specified network interface
+   - Captures key packet information
 
-Step 7: Run Real-Time Threat Detection & Visualization
+2. **Threat Analysis**:
+   - ML model analyzes each packet
+   - Features: protocol type, packet size
+   - Classifications: SAFE or THREAT
 
-To detect threats in real-time and visualize them:
+3. **Real-time Updates**:
+   - WebSocket connections for live updates
+   - Dynamic UI updates
+   - Real-time graph rendering
 
-python3 src/visualize_threats.py
+## 🛠️ Technical Architecture
 
-Safe packets → Green ✅
+```
+ai-cybersecurity-threat-detection/
+├── app.py                  # Flask application & main logic
+├── train_model.py         # ML model training
+├── requirements.txt       # Python dependencies
+├── templates/            
+│   └── index.html        # Dashboard UI template
+├── static/               
+│   └── css/             # Custom styling
+└── models/              
+    └── *.pkl            # Trained ML models
+```
 
-Threat packets → Red ⚠️
+## 🔐 Security Considerations
 
-Press 'Q' to exit visualization or run sudo pkill -f visualize_threats.py
+1. **Privileges**:
+   - Requires sudo for packet capture
+   - Minimal necessary permissions
 
-📊 How It Works
+2. **Data Handling**:
+   - Local processing only
+   - No external data transmission
+   - Temporary packet storage
 
-C++ (packet_sniffer.cpp) captures network traffic using Wireshark’s TShark API.
+3. **Network Impact**:
+   - Passive monitoring only
+   - No packet injection
+   - Minimal performance impact
 
-Python (train_model.py) trains an ML model to detect suspicious activity.
+## 🐛 Troubleshooting
 
-C++ calls Python (detect_threat.py) to classify packets in real-time.
+1. **Permission Issues**:
+```bash
+# If you get permission errors
+sudo chmod +x packet_sniffer
+sudo setcap cap_net_raw,cap_net_admin=eip /usr/bin/python3
+```
 
-Threat results are saved to network_data.csv.
+2. **Port Conflicts**:
+```bash
+# If port 5000 is in use
+sudo python3 app.py --port=5001
+```
 
-Python (visualize_threats.py) dynamically updates a real-time visualization dashboard.
+3. **TShark Issues**:
+```bash
+# Verify TShark installation
+which tshark
+# List available interfaces
+sudo tshark -D
+```
 
-🎯 Features
+## 📝 Contributing
 
-✅ Real-time network packet capture
-✅ Machine Learning-based anomaly detection
-✅ Live OpenCV visualization of network threats
-✅ Auto-closing visualization window with 'Q' key
-✅ Expandable with more datasets & ML models
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
 
-🚀 Future Improvements
+## 📜 License
 
-Train with a larger real-world cybersecurity dataset.
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-Implement deep learning-based threat detection.
+## 🙏 Acknowledgments
 
-Add email alerts for detected threats.
+- Wireshark/TShark team
+- Flask framework
+- scikit-learn
+- Socket.IO
 
-📜 License
+## 📧 Contact
 
-This project is open-source under the MIT License.
+Your Name - your.email@example.com
+Project Link: [https://github.com/yourusername/ai-cybersecurity-threat-detection](https://github.com/yourusername/ai-cybersecurity-threat-detection)
 
-🤝 Contributing
+## ⚠️ Disclaimer
 
-Contributions are welcome! Feel free to fork this repository and submit a pull request.
+This tool is for educational and defensive security purposes only. Users are responsible for complying with applicable laws and regulations regarding network monitoring and security testing.
 
 🔥 Built by OMER KILIC
 🔥Neural & Wires YouTube Channel 
